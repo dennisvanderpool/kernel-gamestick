@@ -524,50 +524,38 @@ static struct platform_device aml_uart_device = {
 
 #ifdef CONFIG_AM_NAND
 static struct mtd_partition normal_partition_info[] = {
-	#ifdef CONFIG_AML_NAND_ENV
-	{
-		.name = "ubootenv",
-		.offset = 8*SZ_1M,
-		.size = 4*SZ_1M,
-	},
-	#endif
-	{
-        .name = "logo",
-        .offset = 32*SZ_1M+40*SZ_1M,
-        .size = 8*SZ_1M,
-    },
     {
-        .name = "aml_logo",
-        .offset = 48*SZ_1M+40*SZ_1M,
-        .size = 8*SZ_1M,
-    },
-    {
-        .name = "recovery",
-        .offset = 64*SZ_1M+40*SZ_1M,
-        .size = 8*SZ_1M,
-    },
+	.name = "logo",
+	.offset = 0,
+	.size = 0x400000,
+    }, 
     {
         .name = "boot",
-        .offset = 96*SZ_1M+40*SZ_1M,
-        .size = 8*SZ_1M,
+        .offset = 0x400000,
+        .size = 0x800000,
     },
     {
         .name = "system",
-        .offset = 128*SZ_1M+40*SZ_1M,
-        .size = 512*SZ_1M+512*SZ_1M,
+        .offset = 0xc00000,
+        .size = 0x20000000,
     },
     {
         .name = "cache",
-        .offset = 640*SZ_1M+512*SZ_1M+40*SZ_1M,
-        .size = 512*SZ_1M,
+        .offset = 0x20c00000,
+        .size = 0x20000000,
     },
     {
-    	  .name = "backup",
-        .offset = 1152*SZ_1M+512*SZ_1M+40*SZ_1M,
-        .size = 256*SZ_1M,
-    },	
+        .name = "backup",
+        .offset = 0x40c00000,
+        .size = 0x20000000,
+    },
     {
         .name = "userdata",
+        .offset = 0x60c00000,
+        .size = 0x100000000,
+    },
+    {
+        .name = "NFTL_Part",
         .offset = MTDPART_OFS_APPEND,
         .size = MTDPART_SIZ_FULL,
     },
