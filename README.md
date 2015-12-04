@@ -1,5 +1,5 @@
 Linux kernel 3.0.x for gamestick based on https://github.com/Stane1983/kernel-amlogic-mx
-## Setup development machine install cross compiler
+## Setup development machine and install cross compiler
 You will need Ubuntu 14.04 with development packages installed and third party gcc cross compiler 4_9-2015q3 from [launchpad](https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2) extracted to /opt
 
 ## Customise Initramfs
