@@ -1,0 +1,49 @@
+#!/bin/sh
+
+PREREQ=""
+
+prereqs()
+{
+	echo "$PREREQ"
+}
+
+case $1 in
+# get pre-requisites
+prereqs)
+	prereqs
+	exit 0
+	;;
+esac
+
+if [ ! -f /dev/ubi0 ]; then
+    echo "attach /dev/mtd2 system to ubi0"
+    ubiattach /dev/ubi_ctrl -m 2
+    echo "attach /dev/mtd5 userdata to ubi1"
+    ubiattach /dev/ubi_ctrl -m 5
+    echo "attach /dev/mtd4 backup to ubi2"
+    ubiattach /dev/ubi_ctrl -m 4
+
+fi
+
+if [ -f /dev/ubi0 ]; then
+    if [ ! -f /dev/ubi0_0 ]; then
+      echo "no valid ubi volume found. Doing factory restore..."
+      ubimkvol /dev/ubi0 -s 448MiB -N rootfs
+      [ -d /backup ] || mkdir /backup
+      echo "mounting backup partition"
+      mount -t ubifs ubi2_0 /backup
+      echo "restore backup images to rootfs"
+      mount -t ubifs ubi0_0 /root
+      cd /root
+      tar xf /backup/rootfs.tar
+      [ -d /root/data ] || mkdir /root/data
+      echo "ubi0_0 / ubifs defaults 0 0" > /root/etc/fstab
+      cd /
+      umount /root
+    fi
+fi
+if [ -f /dev/ubi1 ]; then
+    if [ ! -f /dev/ubi1_0 ]; then
+      ubimkvol /dev/ubi1 -s 3960MiB -N data
+    fi
+fi
