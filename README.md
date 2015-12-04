@@ -21,6 +21,8 @@ make ARCH=arm CROSS_COMPILE=arm-none-eabi- menuconfig
 ```
 ## Install
 ### Install from recovery
+Download flashable image from [here](https://github.com/s7mx1/kernel-gamestick/releases/download/a2dfc7d/kernel-root-on-ubifs-system-with-rootfs_fresh-install-signed.img) and put it to either sdcard or usb stick then flash it with recovery.
+
 ### Install within Linux
 Copy the uImage from arch/arm/boot/uImage on the build machine to gamestick
 then run the following command on the gamestick
